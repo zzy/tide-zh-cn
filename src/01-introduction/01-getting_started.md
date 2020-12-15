@@ -4,7 +4,7 @@
 > <br />
 > commit - ac6f8a5cd1619f9a519c40df428a2c20bd992183 - 2020.12.02
 
-为了在 Rust 中构建 web 应用程序，你需要一个 HTTP 服务器，以及一个异步运行时。在运行 `cargo new --bin web-app` 命令后，将如下行添加到 `Cargo.toml` 文件中：
+为了在 Rust 中构建 web 应用程序，你需要 HTTP 服务器，以及异步运行时。在运行 `cargo new --bin web-app` 命令后，将如下行添加到 `Cargo.toml` 文件中：
 
 ```toml
 # 仅为示例，请使用你需要的版本

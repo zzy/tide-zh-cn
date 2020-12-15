@@ -4,13 +4,12 @@
 > <br />
 > commit - 32c87443efd06c62d0fab49e93e93605b1a7acb6 - 2020.12.02
 
-The central part of a Tide application is the `Server` struct. A Tide application is started by creating a
-`Server` and configuring it with `Route`s to `Endpoint`s.
-When a `Server` is started it will handle incoming `Request`s by matching their URLs with Routes. Requests that match a route are then  dispatched to the corresponding `Endpoint`.
+tide 应用程序的中枢部分是服务器结构体 `Server`。通过创建`服务器（Server）`，并对其配置`路由（Route）`和`端点（Endpoint）`，即可启动 tide 应用程序。当`服务器（Server）`启动时，通过对传入`请求（Request）` 的 URL 和路由进行匹配，来处理传入`请求（Request）`。匹配路由的请求，随后被调度到相应的`端点（Endpoint）`。
 
-## Set up a Server
+## 设置服务器
 
-A basic Tide `Server` is constructed with `tide::new()`.
+使用 `tide::new()` 方法构建基本的 tide `服务器`。
+
 ```rust
 #[async_std::main]
 async fn main() -> tide::Result<()> {
@@ -19,7 +18,8 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-The server can then be started using the asynchronous `listen` method.
+然后，可以使用异步的 `listen` 方法启动服务器。
+
 ```rust
 #[async_std::main]
 async fn main() -> tide::Result<()> {
@@ -29,11 +29,11 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-While this is the simpelest Tide application that you can build, it is not very useful. It will return a 404 HTTP response to any request. To be able to return anything useful we will need to handle requests using one or more `Endpoint`s
+虽然这是你所能构建的最简单的 tide 应用程序，但它并不是很有用。它将对任何请求返回 404 HTTP 响应。为了能够返回任何有用的信息，我们需要使用一个或多个`端点（Endpoint）`来处理请求。
 
-## Handle requests with endpoints
+## 使用端点（Endpoint）处理请求
 
-To make the `Server` return anything other than an HTTP 404 reply we need to tell it how to react to requests. We do this by adding one or more Endpoints;
+为了使`服务器`返回 HTTP 404 回应以外的任何内容，我们需要告诉服务器如何对请求作出反应。我们通过添加一个或多个端点（Endpoint）来实现；
 
 ```rust
 #[async_std::main]
@@ -45,12 +45,13 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-We use the `at` method to specify the route to the endpoint. We will talk about routes later. For now we'll just use the `"*"` wildcard route that matches anything we throw at it. For this example we will add an async closure as the `Endpoint`. Tide expects something that implements the `Endpoint` trait here. But this closure will work because Tide implements the `Endpoint` trait for certain async functions with a signature that looks like this;
+我们使用 `at` 方法指定到达端点（Endpoint）的路由（我们稍后再讨论路由）。目前，我们仅使用 `"*"` 通配符路由，它将与我们抛出的任何内容相匹配。示例中，我们添加了一个异步闭包作为`端点（Endpoint）`。tide 期望 `at` 方法指定的`端点（Endpoint）`路由都实现 `Endpoint` trait。但实例中的闭包是有效的，因为 tide 使用如下签名实现了某些异步函数的 `Endpoint` trait；
+
 ```rust
 async fn endpoint(request: tide::Request) -> tide::Result<impl Into<Response>>
 ```
 
-In this case `Into<Response>` is implemented for `&str` so our closure is a valid Endpoint. Because `Into<Response>` is implemented for several other types you can quickly set up endpoints. For example the next endpoint uses the `json!` macro provided by `use tide::prelude::*` to return a `serde_json::Value`.
+如上示例中，`&str` 实现了 `Into<Response>`，因此我们的闭包是一个有效的端点（Endpoint）。这是因为，`Into<Response>` 是为其它几种可以快捷设定端点的类型实现的。例如，下述实例中，端点（endpoint）使用由 `use tide::prelude::*` 提供的 `json!` 宏，返回 `serde_json::Value`。
 
 ```rust
 use tide::prelude::*;
@@ -71,7 +72,7 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-Returning quick string or json results is nice for getting a working endpoint quickly. But for more control a full `Response` struct can be returned.
+返回字符串或 json 结果，对于获得能运作的端点（endpoint）很便捷。但是对于更多的操作，需要返回完整的响应结构体 `Response`。
 
 ```rust
 server.at("*").get(|_| async {
@@ -79,9 +80,9 @@ server.at("*").get(|_| async {
 });
 ```
 
-The `Response` type is described in more detail in the next chapter.
+下一章中，将更详细地描述 `Response` 类型。
 
-More than one endpoint can be added by chaining methods. For example if we want to reply to a `delete` request as wel as a `get` request endpoints can be added for both;
+可以通过方法链添加多个端点（endpoint）。例如，如果我们想回应一个 `delete` 请求以及一个 `get` 请求，那么可以为两者各自添加端点（endpoint）；
 
 ```rust
 server.at("*")
@@ -89,7 +90,7 @@ server.at("*")
     .delete(|_| async { Ok("Goodbye, cruel world!") });
 ```
 
-Eventually, especially when our endpoint methods grow a bit, the route definitions will get a crowded. We could move our endpoint implementations to their own functions;
+最后，当我们的端点（endpoint）方法一点点增长时，路由的定义将变得拥挤。我们可以将端点（endpoint）实现转移到它们自己的函数中；
 
 ```rust
 #[async_std::main]
@@ -105,7 +106,7 @@ async fn endpoint(_req: tide::Request<()>) -> Result<Response> {
 }
 ```
 
-## Defining and composing routes
+## 定义和组织路由
 
 The server we built is still not very useful. It will return the same response for any URL. It is only able to differentiate between requests by HTTP method. We already used the `.at` method of the `Server` to define a wildcard route. You might have guessed how to add endpoints to specific routes;
 
