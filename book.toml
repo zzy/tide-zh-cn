@@ -1,12 +1,28 @@
 [book]
-authors = ["Mendelt Siebenga"]
-language = "en"
-multilingual = false
+title = "tide 开发指南 - tide 中文文档"
+authors = ["zzy"]
+language = "zh"
+description = "rust web 框架, tide 开发指南, tide 项目实战, tide 中文文档"
 src = "src"
-title = "Tide Book"
+multilingual = true
 
-[build]
-create-missing = false
+[output.html]
+theme = "theme"
+# default-theme = "rust"
+git-repository-url = "https://github.com/zzy/tide-zh-cn"
+curly-quotes = true
+mathjax-support = true
 
-[rust]
-edition = "2018"
+[output.html.playpen]
+editable = true
+copy-js = true
+
+[output.html.search]
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+copy-js = true
