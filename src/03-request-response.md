@@ -10,35 +10,38 @@
 async fn endpoint(request: tide::Request) -> tide::Result<impl Into<Response>>
 ```
 
-`请求（Request）`对象包含服务器接收到的来自HTTP请求的所有信息。请求中的URL、HTTP头、cookies和查询字符串参数都可以在请求中找到。此外，Tide中的Request对象用于将有关应用程序状态和请求状态的信息传递到端点。我们将在下一章关于国家的章节中对此进行研究。
+`Request` 对象包含服务器接收到的来自 HTTP 请求的所有信息。请求中的URL、HTTP 消息标头、cookies，以及查询字符串参数，这些都可以在 `Request` 结构体中找到。此外，tide 中的 `Request` 对象用于将应用程序状态和请求状态的相关信息传递到端点（endpoint）。下一章是`状态（State）`部分，我们将对此进行研究。
 
+`Response` 结构体允许我们构建完整的 HTTP 响应。它包含 HTTP 响应的主体，也包含一组 HTTP 消息标头和响应码。虽然可以直接创建、访问和修改 `Response` 结构体，但是通过 Tide 内置的 `ResponseBuilder` 构建器创建 `Response` 非常方便。
 
-反过来，响应结构允许我们构建一个完整的HTTP响应。它包含响应主体，但也包含一组HTTP头和一个响应代码。虽然可以直接创建、访问和修改响应结构，但是通过Tide ResponseBuilder创建响应非常方便。
+## 请求
 
-The `Request` object contains all the information from the HTTP request that was received by the server. The URL from the request, HTTP headers, cookies and query string parameters can all be found in the `Request`.
-Additionally the `Request` object in Tide is used to pass information about the application state and the request state into the endpoint. We will look into this in the next chapter about `State`.
+Tide 中，`Request` 结构体是端点（endpoint）处理函数的输入。它包含来自 HTTP 请求的所有数据，但是 Tide 也使用 `Request` 结构体来传输应用程序和请求的`状态`。我们将在下一章更详细地讨论这个问题。现在，你只需知道 `Request<State>` 类型中的 `State` 泛型参数是应用程序的状态即可。在大多数简单示例中，我们不会使用 `State` 泛型参数，而是使用 `Request<()>`。
 
-The `Response` struct in turn allows us to craft a complete HTTP response. It contains the `Response` body, but also a set of HTTP headers and a response code. While the `Response` struct can be created, accessed and modified directly, it can be convenient to create a `Response` through the Tide `ResponseBuilder`.
+### 请求主体
 
-## Request
-The Tide `Request` struct is te input to your endpoint handler function. It contains all the data from the HTTP request but it is also used by Tide to pass in the application and request `State`. We will look at this in more detail in the next chapter. For now it is enough to know that the `State` generic type parameter of the `Request<State>` type you will see everywhere is the application state. In most simple examples we will not use this state and you will see `Request<()>`.
+### 访问 Url 参数
 
-### Request body
+在上一章中，我们讨论了匹配 Url 路由，特别是在关于通配符的段落中，我们已经提到了 Url 参数。例如，任何带有这样命名通配符的路由：
 
-### Accessing Url parameters
-In the last chapter where we talked about matching Url routes and specifically in the paragraph about wildcards we already mentioned Url-parameters.
-From any route with named wildcards like this;
 ```rust
 {{#include ../examples/ch03-request-response/src/main.rs:url-params-route}}
 ```
-Any value that was used to match the a wildcard can be retrieved using the `request.param` method;
+
+任何用于匹配通配符的值，都可以使用 `request.param` 方法进行检索：
+
 ```rust
 {{#include ../examples/ch03-request-response/src/main.rs:url-params-handler}}
 ```
 
-### The query string and query parameters
+### 查询字符串和查询参数
 
-### HTTP request headers
+等待官方文档
 
-## Response and the ResponseBuilder
+### HTTP 请求标头
 
+等待官方文档
+
+## 响应和响应构建器（ResponseBuilder）
+
+等待官方文档
