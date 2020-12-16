@@ -1,9 +1,20 @@
-# Request and Response
+# 请求和响应
 
-In the previous chapter we saw how endpoints are functions that take a `Request` and return a `Response`, or more accurately a `Result` enum with a type that can be turned into a `Response`
+> [03-request-response.md](https://github.com/http-rs/tide-book/blob/main/src/03-request-response.md)
+> <br />
+> commit - 8765e71b37816e22d87517112ff33495f233a684 - 2020.12.03
+
+在上一章中，我们了解了端点（endpoint）是接收`请求（Request）`和返回`函数（Response）`的函数，或者更准确地说，端点（endpoint）是一个具有可转换为`响应（Response）`类型的枚举 `Result`。
+
 ```rust
 async fn endpoint(request: tide::Request) -> tide::Result<impl Into<Response>>
 ```
+
+`请求（Request）`对象包含服务器接收到的来自HTTP请求的所有信息。请求中的URL、HTTP头、cookies和查询字符串参数都可以在请求中找到。此外，Tide中的Request对象用于将有关应用程序状态和请求状态的信息传递到端点。我们将在下一章关于国家的章节中对此进行研究。
+
+
+反过来，响应结构允许我们构建一个完整的HTTP响应。它包含响应主体，但也包含一组HTTP头和一个响应代码。虽然可以直接创建、访问和修改响应结构，但是通过Tide ResponseBuilder创建响应非常方便。
+
 The `Request` object contains all the information from the HTTP request that was received by the server. The URL from the request, HTTP headers, cookies and query string parameters can all be found in the `Request`.
 Additionally the `Request` object in Tide is used to pass information about the application state and the request state into the endpoint. We will look into this in the next chapter about `State`.
 

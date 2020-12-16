@@ -1,4 +1,4 @@
-# 服务器、路由、端点（Endpoints）
+# 服务器、路由、端点（Endpoint）
 
 > [02-server_routes_endpoints.md](https://github.com/http-rs/tide-book/blob/main/src/02-server_routes_endpoints.md)
 > <br />
@@ -45,7 +45,7 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-我们使用 `at` 方法指定到达端点（Endpoint）的路由（我们稍后再讨论路由）。目前，我们仅使用 `"*"` 通配符路由，它将与我们抛出的任何内容相匹配。示例中，我们添加了一个异步闭包作为`端点（Endpoint）`。tide 期望 `at` 方法指定的`端点（Endpoint）`路由都实现 `Endpoint` trait。但实例中的闭包是有效的，因为 tide 使用如下签名实现了某些异步函数的 `Endpoint` trait；
+我们使用 `at` 方法指定到达端点（Endpoint）的路由（我们稍后再讨论路由）。目前，我们仅使用 `"*"` 通配符路由，它将与我们抛出的任何内容相匹配。示例中，我们添加了一个异步闭包作为`端点（Endpoint）`。tide 期望路由后添加的`端点（Endpoint）`函数的参数都实现 `Endpoint` trait。但实例中的闭包是有效的，因为 tide 使用如下签名实现了某些异步函数的 `Endpoint` trait；
 
 ```rust
 async fn endpoint(request: tide::Request) -> tide::Result<impl Into<Response>>
@@ -108,7 +108,7 @@ async fn endpoint(_req: tide::Request<()>) -> Result<Response> {
 
 ## 定义和组织路由
 
-The server we built is still not very useful. It will return the same response for any URL. It is only able to differentiate between requests by HTTP method. We already used the `.at` method of the `Server` to define a wildcard route. You might have guessed how to add endpoints to specific routes;
+以上过程中，我们构建的服务器仍然不是很有用。它对任何 URL 都返回相同响应，并且只能通过 HTTP 方法区分请求。我们已经使用`服务器（Server）`的 `.at` 方法定义了通配符路由，你可能已经猜到了如何向指定路由添加端点（endpoint）；
 
 ```rust,ignore
 #[async_std::main]
@@ -123,16 +123,20 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-Here we added two routes for two different endpoints. Routes can also be composed by chaining the `.at` method.
+示例中，我们为两个不同的端点各自添加了路由。也可以通过链接多个 `.at` 方法来组合路由。
+
 ```rust
 server.at("/hello").at("world").get(|_| async { Ok("Hello, world!") });
 ```
-This will give you the same result as:
+
+与如下写法得到的结果相同：
+
 ```rust
 server.at("/hello/world").get(|_| async { Ok("Hello, world!") });
 ```
 
-We can store the partial routes and re-use them;
+我们也可以存储部分路径，后续对其重用；
+
 ```rust
 #[async_std::main]
 async fn main() -> tide::Result<()> {
@@ -148,9 +152,11 @@ async fn main() -> tide::Result<()> {
     Ok(())
 }
 ```
-Here we added two sub-routes to the `hello` route. One at `/hello/world` and another one at `hello/mum` with different endpoint functions. We also added an endpoint at `/hello`. This gives an idea what it will be like to build up more complex routing trees
 
-When you have a complex api this also allows you to define different pieces of your route tree in separate functions.
+上面的示例中，我们向 `hello` 路由添加了两个子路由。一个是 `/hello/world`，另一个是 `hello/mum`，并且各自具有不同的端点（endpoint）函数。我们还可以为路由 `/hello` 添加端点（endpoint）。这给了我们思路，那就是建立更复杂的路由树。
+
+当您有一个复杂的 api 时，上述用法允许您在不同的函数中定义路由树的不同部分。
+
 ```rust
 #[async_std::main]
 async fn main() -> tide::Result<()> {
@@ -171,21 +177,23 @@ fn v2_routes(route: Route) {
     route.at("version").get(|_| async { Ok("Version two") });
 }
 ```
-This example shows for example an API that exposes two different versions. The routes for each version are defined in a separate function.
 
-## Wildcards
-There are two wildcard characters we can use `:` and `*`. We already met the `*` wildcard. We used it in the first couple of endpoint examples.
-Both wildcard characters will match route segments. Segments are the pieces of a route that are separated with slashes. `:` will match exactly one segment while '*' will match one or more segments.
+这个示例展示了暴露两个不同版本 API 的用法，每个版本的路由在各自的函数中定义。
 
-`"/foo/*/baz"` for example will match against `"/foo/bar/baz"` or `"/foo/bar/qux/baz"`
+## 通配符
 
-"foo/:/baz" will match "/foo/bar/baz" but not "/foo/bar/qux/baz", the latter has two segments between foo and baz, while `:` only matches single segments.
+我们可以使用两个通配符字符 `:` 和 `*`。前面的端点（endpoint）示例中，我们已经用到了 `*` 通配符。两个通配符都可以匹配路由段——路由中，使用斜杠 `/` 隔开的的各部分，称之为路由段——`:` 将只匹配一个路由段，而 '*' 将匹配一个或多个路由段。
 
-### Naming wildcards
-It is also possible to name wildcards. This allows you to query the specific strings the wildcard matched on. For example `"/:bar/*baz"` 
-will match the string `"/one/two/three"`. You can then query which wildcards matched which parts of the string. In this case `bar` matched `one` while `baz` matched `two/three`. We'll see how you can use this to parse parameters from urls in the next chapter.
+例如，`"/foo/*/baz"` 将可以匹配 `"/foo/bar/baz"` 或者 `"/foo/bar/qux/baz"`。
 
-### Wildcard precedence
-When using wildcards it is possible to define multiple different routes that match the same path.
+"foo/:/baz" 将匹配 "/foo/bar/baz"，但不匹配 "/foo/bar/qux/baz"。后者在 `foo` 和 `baz` 之间有两个路由段，而 `:` 仅匹配单个路由段。
 
-The routes `"/some/*"` and `"/some/specific/*"` will both match the path `"/some/specific/route"` for example. In many web-frameworks the order in which the routes are defined will determine which route will match. Tide will match the most specific route that matches. In the example it the `"/some/specific/*"` route will match the path.
+### 命名通配符
+
+通配符也可以用来命名。这允许您查询通配符匹配的特定字符串。例如，`"/:bar/*baz"` 将匹配字符串 `"/one/two/three"`。命名通配符可以用来查询哪些通配符匹配字符串的哪些部分。示例中，`bar` 匹配 `one`，`baz` 匹配 `two/three`。在下一章中，我们将看到如何使用命名通配符来解析 url 中的参数。
+
+### 通配符优先权
+
+使用通配符时，可以定义匹配同一路径的多个不同路由。
+
+例如，路由 `"/some/*"` 和 `"/some/specific/*"` 都将匹配路径 `"/some/specific/route"`。在很多 web 框架中，路由的定义顺序将决定匹配哪个路由。tide 将匹配模式最具体的路由。在示例中，路由 `"/some/specific/*"` 将与路径匹配。
