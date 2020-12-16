@@ -1,42 +1,41 @@
-# Tide book
-This repository contains the source for the [Tide Book], the book is written in the `markdown` format and is built using [mdbook].
+# tide 中文文档
 
-## Development
-The documentation can be edited using any text editor. Most commonly used editors support syntax highlighting for the `markdown` format. To view your changes you can install the [mdbook] tool locally, assuming you already have a working `Rust` setup;
-```console
-> cargo install mdbook
+[Build Status travis]: https://api.travis-ci.com/zzy/tide-zh-cn.svg?branch=master
+[travis]: https://travis-ci.com/zzy/tide-zh-cn
+
+tide 是 Rust 生态中的最为优秀的 web 框架之一，具有类型安全、功能丰富、扩展性强，以及速度极快的诸多优点。
+
+本仓库为《tide 中文文档》，同步、整理、实践，以及拓展自 tide 团队仓库和官网。
+
+**感谢 tide 团队的无私奉献！**
+
+## 在线阅读
+
+在线阅读地址：[**《tide 中文文档》** - https://tide.budshome.com](https://tide.budshome.com)。
+
+## 离线阅读
+
+如果你喜欢本地阅读方式，可以使用 mdBook（[中文文档](https://mdbook.budshome.com)） 进行书籍构建：
+
+> 构建时需要安装一些 crate，中国大陆推荐[更换默认的 Cargo 源为国内镜像源](https://cargo.budshome.com/reference/source-replacement.html)。
+
+```bash
+$ git clone https://github.com/zzy/tide-zh-cn
+$ cd tide-zh-cn
+$ cargo install mdbook # 指定版本使用参数：--vers "0.3.5"
+$ mdbook serve --open # 或者 mdbook build
 ```
 
-With [mdbook] installed you can use it to build and serve the documentation on your local system;
-```console
-> mdbook serve
+也可以直接用你喜欢的浏览器从 `book` 子目录打开 `index.html` 文件。
+
+```bash
+$ xdg-open ./book/index.html # linux
+$ start .\book\index.html    # windows
+$ open ./book/index.html     # mac
 ```
-this will start a local server that will be available on [localhost](http://localhost:3000) and will automatically build and re-build the documentation when it changes.
 
-## Contributing
-Want to help out? Check out our [The "Contributing" document][contributing]
+## 贡献
 
-### Conduct
+《tide 中文文档》的目的是让 Rust 程序员新手能够更容易地参与到 tide 社区中，因此它需要——并欢迎——你做出自己力所能及的贡献。
 
-The Tide project adheres to the [Contributor Covenant Code of
-Conduct](https://github.com/http-rs/tide/blob/main/.github/CODE_OF_CONDUCT.md).
-This describes the minimum behavior expected from all contributors.
-
-## License
-
-Licensed under either of
-
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
-- MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
-
-at your option.
-
-### Contribution
-
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
-dual licensed as above, without any additional terms or conditions.
-
-[Tide Book]: https://http-rs.github.io/tide-book/
-[mdbook]: https://rust-lang.github.io/mdBook/
-[contributing]: https://github.com/http-rs/tide/blob/main/.github/CONTRIBUTING.md
+祝你学习愉快，欢迎提交问题，欢迎发送 PR。
