@@ -1,17 +1,17 @@
-# tide 中文文档
+# Tide 中文文档
 
 [Build Status travis]: https://api.travis-ci.com/zzy/tide-zh-cn.svg?branch=master
 [travis]: https://travis-ci.com/zzy/tide-zh-cn
 
-tide 是 Rust 生态中的最为优秀的 web 框架之一，具有类型安全、功能丰富、扩展性强，以及速度极快的诸多优点。
+Tide 是 Rust 生态中的最为优秀的 web 框架之一，具有类型安全、功能丰富、扩展性强，以及速度极快的诸多优点。
 
-本仓库为《tide 中文文档》，同步、整理、实践，以及拓展自 tide 团队仓库和官网。
+本仓库为《Tide 中文文档》，同步、整理、实践，以及拓展自 Tide 团队仓库和官网。
 
-**感谢 tide 团队的无私奉献！**
+**感谢 Tide 团队的无私奉献！**
 
 ## 在线阅读
 
-在线阅读地址：[**《tide 中文文档》** - https://tide.budshome.com](https://tide.budshome.com)。
+在线阅读地址：[**《Tide 中文文档》** - https://tide.budshome.com](https://tide.budshome.com)。
 
 ## 离线阅读
 
@@ -36,6 +36,6 @@ $ open ./book/index.html     # mac
 
 ## 贡献
 
-《tide 中文文档》的目的是让 Rust 程序员新手能够更容易地参与到 tide 社区中，因此它需要——并欢迎——你做出自己力所能及的贡献。
+《Tide 中文文档》的目的是让 Rust 程序员新手能够更容易地参与到 Tide 社区中，因此它需要——并欢迎——你做出自己力所能及的贡献。
 
 祝你学习愉快，欢迎提交问题，欢迎发送 PR。

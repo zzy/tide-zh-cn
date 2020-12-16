@@ -1,8 +1,8 @@
 [book]
-title = "tide 开发指南 - tide 中文文档"
+title = "Tide 中文文档 - Rust-Web 开发指南"
 authors = ["zzy"]
 language = "zh"
-description = "rust web 框架, tide 开发指南, tide 项目实战, tide 中文文档"
+description = "Rust Web 框架, Tide 开发指南, Tide 项目实战, Tide 中文文档"
 src = "src"
 multilingual = true
 

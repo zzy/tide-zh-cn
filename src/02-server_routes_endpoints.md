@@ -4,11 +4,11 @@
 > <br />
 > commit - 32c87443efd06c62d0fab49e93e93605b1a7acb6 - 2020.12.02
 
-tide 应用程序的中枢部分是服务器结构体 `Server`。通过创建`服务器（Server）`，并对其配置`路由（Route）`和`端点（Endpoint）`，即可启动 tide 应用程序。当`服务器（Server）`启动时，通过对传入`请求（Request）` 的 URL 和路由进行匹配，来处理传入`请求（Request）`。匹配路由的请求，随后被调度到相应的`端点（Endpoint）`。
+Tide 应用程序的中枢部分是服务器结构体 `Server`。通过创建`服务器（Server）`，并对其配置`路由（Route）`和`端点（Endpoint）`，即可启动 Tide 应用程序。当`服务器（Server）`启动时，通过对传入`请求（Request）` 的 URL 和路由进行匹配，来处理传入`请求（Request）`。匹配路由的请求，随后被调度到相应的`端点（Endpoint）`。
 
 ## 设置服务器
 
-使用 `tide::new()` 方法构建基本的 tide `服务器`。
+使用 `tide::new()` 方法构建基本的 Tide `服务器`。
 
 ```rust
 #[async_std::main]
@@ -29,7 +29,7 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-虽然这是你所能构建的最简单的 tide 应用程序，但它并不是很有用。它将对任何请求返回 404 HTTP 响应。为了能够返回任何有用的信息，我们需要使用一个或多个`端点（Endpoint）`来处理请求。
+虽然这是你所能构建的最简单的 Tide 应用程序，但它并不是很有用。它将对任何请求返回 404 HTTP 响应。为了能够返回任何有用的信息，我们需要使用一个或多个`端点（Endpoint）`来处理请求。
 
 ## 使用端点（Endpoint）处理请求
 
@@ -45,7 +45,7 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-我们使用 `at` 方法指定到达端点（Endpoint）的路由（我们稍后再讨论路由）。目前，我们仅使用 `"*"` 通配符路由，它将与我们抛出的任何内容相匹配。示例中，我们添加了一个异步闭包作为`端点（Endpoint）`。tide 期望路由后添加的`端点（Endpoint）`函数的参数都实现 `Endpoint` trait。但实例中的闭包是有效的，因为 tide 使用如下签名实现了某些异步函数的 `Endpoint` trait；
+我们使用 `at` 方法指定到达端点（Endpoint）的路由（我们稍后再讨论路由）。目前，我们仅使用 `"*"` 通配符路由，它将与我们抛出的任何内容相匹配。示例中，我们添加了一个异步闭包作为`端点（Endpoint）`。Tide 期望路由后添加的`端点（Endpoint）`函数的参数都实现 `Endpoint` trait。但实例中的闭包是有效的，因为 Tide 使用如下签名实现了某些异步函数的 `Endpoint` trait；
 
 ```rust
 async fn endpoint(request: tide::Request) -> tide::Result<impl Into<Response>>
@@ -196,4 +196,4 @@ fn v2_routes(route: Route) {
 
 使用通配符时，可以定义匹配同一路径的多个不同路由。
 
-例如，路由 `"/some/*"` 和 `"/some/specific/*"` 都将匹配路径 `"/some/specific/route"`。在很多 web 框架中，路由的定义顺序将决定匹配哪个路由。tide 将匹配模式最具体的路由。在示例中，路由 `"/some/specific/*"` 将与路径匹配。
+例如，路由 `"/some/*"` 和 `"/some/specific/*"` 都将匹配路径 `"/some/specific/route"`。在很多 web 框架中，路由的定义顺序将决定匹配哪个路由。Tide 将匹配模式最具体的路由。在示例中，路由 `"/some/specific/*"` 将与路径匹配。
