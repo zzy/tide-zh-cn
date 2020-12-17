@@ -1,4 +1,4 @@
-# 实例
+# 示例
 
 > [01-introduction/02-example.md](https://github.com/http-rs/tide-book/blob/main/src/01-introduction/02-example.md)
 > <br />

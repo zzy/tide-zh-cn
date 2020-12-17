@@ -51,7 +51,7 @@ async fn main() -> tide::Result<()> {
 async fn endpoint(request: tide::Request) -> tide::Result<impl Into<Response>>
 ```
 
-如上示例中，`&str` 实现了 `Into<Response>`，因此我们的闭包是一个有效的端点（Endpoint）。这是因为，`Into<Response>` 是为其它几种可以快捷设定端点的类型实现的。例如，下述实例中，端点（endpoint）使用由 `use tide::prelude::*` 提供的 `json!` 宏，返回 `serde_json::Value`。
+如上示例中，`&str` 实现了 `Into<Response>`，因此我们的闭包是一个有效的端点（Endpoint）。这是因为，`Into<Response>` 是为其它几种可以快捷设定端点（Endpoint）的类型实现的。例如，下述实例中，端点（Endpoint）使用由 `use tide::prelude::*` 提供的 `json!` 宏，返回 `serde_json::Value`。
 
 ```rust,edition2018,no_run
 use tide::prelude::*;
@@ -72,7 +72,7 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-返回字符串或 json 结果，对于获得能运作的端点（endpoint）很便捷。但是对于更多的操作，需要返回完整的响应结构体 `Response`。
+返回字符串或 json 结果，对于获得能运作的端点（Endpoint）很便捷。但是对于更多的操作，需要返回完整的响应结构体 `Response`。
 
 ```rust,edition2018,no_run
 server.at("*").get(|_| async {
@@ -82,7 +82,7 @@ server.at("*").get(|_| async {
 
 下一章中，将更详细地描述 `Response` 类型。
 
-可以通过方法链添加多个端点（endpoint）。例如，如果我们想回应一个 `delete` 请求以及一个 `get` 请求，那么可以为两者各自添加端点（endpoint）；
+可以通过方法链添加多个端点（Endpoint）。例如，如果我们想回应一个 `delete` 请求以及一个 `get` 请求，那么可以为两者各自添加端点（Endpoint）；
 
 ```rust,edition2018,no_run
 server.at("*")
@@ -90,7 +90,7 @@ server.at("*")
     .delete(|_| async { Ok("Goodbye, cruel world!") });
 ```
 
-最后，当我们的端点（endpoint）方法一点点增长时，路由的定义将变得拥挤。我们可以将端点（endpoint）实现转移到它们自己的函数中；
+最后，当我们的端点（Endpoint）方法一点点增长时，路由的定义将变得拥挤。我们可以将端点（Endpoint）实现转移到它们自己的函数中；
 
 ```rust,edition2018,no_run
 #[async_std::main]
@@ -108,7 +108,7 @@ async fn endpoint(_req: tide::Request<()>) -> Result<Response> {
 
 ## 定义和组织路由
 
-以上过程中，我们构建的服务器仍然不是很有用。它对任何 URL 都返回相同响应，并且只能通过 HTTP 方法区分请求。我们已经使用`服务器（Server）`的 `.at` 方法定义了通配符路由，你可能已经猜到了如何向指定路由添加端点（endpoint）；
+以上过程中，我们构建的服务器仍然不是很有用。它对任何 URL 都返回相同响应，并且只能通过 HTTP 方法区分请求。我们已经使用`服务器（Server）`的 `.at` 方法定义了通配符路由，你可能已经猜到了如何向指定路由添加端点（Endpoint）；
 
 ```rust,edition2018,no_run
 #[async_std::main]
@@ -153,7 +153,7 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-上面的示例中，我们向 `hello` 路由添加了两个子路由。一个是 `/hello/world`，另一个是 `hello/mum`，并且各自具有不同的端点（endpoint）函数。我们还可以为路由 `/hello` 添加端点（endpoint）。这给了我们思路，那就是建立更复杂的路由树。
+上面的示例中，我们向 `hello` 路由添加了两个子路由。一个是 `/hello/world`，另一个是 `hello/mum`，并且各自具有不同的端点（Endpoint）函数。我们还可以为路由 `/hello` 添加端点（Endpoint）。这给了我们思路，那就是建立更复杂的路由树。
 
 当你有一个复杂的 api 时，上述用法允许你在不同的函数中定义路由树的不同部分。
 
@@ -182,7 +182,7 @@ fn v2_routes(route: Route) {
 
 ## 通配符
 
-我们可以使用两个通配符字符 `:` 和 `*`。前面的端点（endpoint）示例中，我们已经用到了 `*` 通配符。两个通配符都可以匹配路由段——路由中，使用斜杠 `/` 隔开的的各部分，称之为路由段——`:` 将只匹配一个路由段，而 '*' 将匹配一个或多个路由段。
+我们可以使用两个通配符字符 `:` 和 `*`。前面的端点（Endpoint）示例中，我们已经用到了 `*` 通配符。两个通配符都可以匹配路由段——路由中，使用斜杠 `/` 隔开的的各部分，称之为路由段——`:` 将只匹配一个路由段，而 '*' 将匹配一个或多个路由段。
 
 例如，`"/foo/*/baz"` 将可以匹配 `"/foo/bar/baz"` 或者 `"/foo/bar/qux/baz"`。
 

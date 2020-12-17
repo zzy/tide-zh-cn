@@ -8,7 +8,7 @@
 
 - [介绍](./01-introduction/00-introduction.md)
   - [入门](./01-introduction/01-getting_started.md)
-  - [实例](./01-introduction/02-example.md)
+  - [示例](./01-introduction/02-example.md)
 - [服务器、路由、端点（Endpoints）](./02-server_routes_endpoints.md)
 - [请求和响应](./03-request-response.md)
 - [服务器和请求状态](./04-state.md)
