@@ -6,7 +6,7 @@
 
 下面的示例中，将创建 HTTP 服务器，接收 JSON 文本，对其进行验证，并用确认消息进行响应。
 
-```rust
+```rust,edition2018,no_run
 {{#include ../../examples/ch01-02-example/src/main.rs:example}}
 ```
 

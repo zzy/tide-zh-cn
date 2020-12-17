@@ -6,7 +6,7 @@
 
 在上一章中，我们了解了端点（endpoint）是接收`请求（Request）`和返回`函数（Response）`的函数，或者更准确地说，端点（endpoint）是一个具有可转换为`响应（Response）`类型的枚举 `Result`。
 
-```rust
+```rust,edition2018,no_run
 async fn endpoint(request: tide::Request) -> tide::Result<impl Into<Response>>
 ```
 
@@ -24,13 +24,13 @@ Tide 中，`Request` 结构体是端点（endpoint）处理函数的输入。它
 
 在上一章中，我们讨论了匹配 Url 路由，特别是在关于通配符的段落中，我们已经提到了 Url 参数。例如，任何带有这样命名通配符的路由：
 
-```rust
+```rust,edition2018,no_run
 {{#include ../examples/ch03-request-response/src/main.rs:url-params-route}}
 ```
 
 任何用于匹配通配符的值，都可以使用 `request.param` 方法进行检索：
 
-```rust
+```rust,edition2018,no_run
 {{#include ../examples/ch03-request-response/src/main.rs:url-params-handler}}
 ```
 
