@@ -47,7 +47,7 @@ async fn main() -> tide::Result<()> {
 
 我们使用 `at` 方法指定到达端点（Endpoint）的路由（我们稍后再讨论路由）。目前，我们仅使用 `"*"` 通配符路由，它与任何路径都可以匹配。示例中，我们添加了一个异步闭包作为`端点（Endpoint）`。Tide 期望路由后添加的`端点（Endpoint）`函数的参数都实现 `Endpoint` trait。但当前实例中的闭包也是有效的，因为 Tide 使用如下签名实现了某些异步函数的 `Endpoint` trait；
 
-```rust,edition2018,no_run
+```rust,ignore
 async fn endpoint(request: tide::Request) -> tide::Result<impl Into<Response>>
 ```
 
@@ -72,9 +72,9 @@ async fn main() -> tide::Result<()> {
 }
 ```
 
-返回字符串或 json 结果，对于获得能运作的端点（Endpoint）很便捷。但是对于更多的操作，需要返回完整的响应结构体 `Response`。
+示例中，响应会返回字符串或 json 结果，对于获得能运作的端点（Endpoint）而言，这些用法很便捷。下面示例中，我们返回完整的响应结构体 `Response`。
 
-```rust,edition2018,no_run
+```rust,ignore
 server.at("*").get(|_| async {
     Ok(Response::new(StatusCode::Ok).set_body("Hello world".into()))
 });
@@ -84,7 +84,7 @@ server.at("*").get(|_| async {
 
 可以通过方法链添加多个端点（Endpoint）。例如，如果我们想回应一个 `delete` 请求以及一个 `get` 请求，那么可以为两者各自添加端点（Endpoint）；
 
-```rust,edition2018,no_run
+```rust,ignore
 server.at("*")
     .get(|_| async { Ok("Hello, world!") })
     .delete(|_| async { Ok("Goodbye, cruel world!") });
@@ -125,13 +125,13 @@ async fn main() -> tide::Result<()> {
 
 示例中，我们为两个不同的端点各自添加了路由。也可以通过链接多个 `.at` 方法来组合路由。
 
-```rust,edition2018,no_run
+```rust,ignore
 server.at("/hello").at("world").get(|_| async { Ok("Hello, world!") });
 ```
 
 与如下写法得到的结果相同：
 
-```rust,edition2018,no_run
+```rust,ignore
 server.at("/hello/world").get(|_| async { Ok("Hello, world!") });
 ```
 
@@ -169,11 +169,11 @@ async fn main() -> tide::Result<()> {
     Ok(())
 }
 
-fn v1_routes(route: Route) {
+fn set_v1_routes(route: Route) {
     route.at("version").get(|_| async { Ok("Version one") });
 }
 
-fn v2_routes(route: Route) {
+fn set_v2_routes(route: Route) {
     route.at("version").get(|_| async { Ok("Version two") });
 }
 ```
@@ -182,7 +182,7 @@ fn v2_routes(route: Route) {
 
 ## 通配符
 
-我们可以使用两个通配符字符 `:` 和 `*`。前面的端点（Endpoint）示例中，我们已经用到了 `*` 通配符。两个通配符都可以匹配路由段——路由中，使用斜杠 `/` 隔开的的各部分，称之为路由段——`:` 将只匹配一个路由段，而 '*' 将匹配一个或多个路由段。
+我们可以使用两个通配符字符 `:` 和 `*`。前面的端点（Endpoint）示例中，我们已经用到了 `*` 通配符。两个通配符都可以匹配路由段——路由中，使用斜杠 `/` 隔开的的各部分，称之为路由段——`:` 将只匹配一个路由段，而 `*` 将匹配一个或多个路由段。
 
 例如，`"/foo/*/baz"` 将可以匹配 `"/foo/bar/baz"` 或者 `"/foo/bar/qux/baz"`。
 
@@ -196,4 +196,4 @@ fn v2_routes(route: Route) {
 
 使用通配符时，可以定义匹配同一路径的多个不同路由。
 
-例如，路由 `"/some/*"` 和 `"/some/specific/*"` 都将匹配路径 `"/some/specific/route"`。在很多 web 框架中，路由的定义顺序将决定匹配哪个路由。Tide 将匹配模式最具体的路由。在示例中，路由 `"/some/specific/*"` 将与路径匹配。
+例如，路由 `"/some/*"` 和 `"/some/specific/*"` 都将匹配路径 `"/some/specific/route"`。在很多 web 框架中，路由的定义顺序将决定匹配哪个路由。而在 Tide 框架中，将匹配模式最具体的路由。在示例中，路由 `"/some/specific/*"` 将与路径匹配。
