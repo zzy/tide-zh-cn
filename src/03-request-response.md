@@ -2,7 +2,7 @@
 
 > [03-request-response.md](https://github.com/http-rs/tide-book/blob/main/src/03-request-response.md)
 > <br />
-> commit - 8765e71b37816e22d87517112ff33495f233a684 - 2020.12.03
+> commit - 594b37d6bb98a7f39e7596f457ffcb83fd160b86 - 2021.01.04
 
 在上一章中，我们了解到端点（Endpoint）是接收`请求（Request）`和返回`响应（Response）`的函数。或者更准确地说，端点（Endpoint）是一个具有可转换为`响应（Response）`类型的枚举 `Result`。
 

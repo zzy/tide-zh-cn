@@ -2,7 +2,7 @@
 
 > [02-server_routes_endpoints.md](https://github.com/http-rs/tide-book/blob/main/src/02-server_routes_endpoints.md)
 > <br />
-> commit - 32c87443efd06c62d0fab49e93e93605b1a7acb6 - 2020.12.02
+> commit - 594b37d6bb98a7f39e7596f457ffcb83fd160b86 - 2021.01.04
 
 Tide 应用程序的中枢部分是服务器结构体 `Server`。通过创建`服务器（Server）`，并对其配置`路由（Route）`和`端点（Endpoint）`，即可启动 Tide 应用程序。当`服务器（Server）`启动时，通过对传入`请求（Request）` 的 URL 和路由进行匹配，来处理传入`请求（Request）`。匹配路由的请求，随后将被调度到相应的`端点（Endpoint）`。
 
