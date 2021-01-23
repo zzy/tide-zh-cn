@@ -17,7 +17,7 @@ Tide 是小型而实用的 Rust web 应用程序框架，为快速开发而构�
 > - [jsonwebtoken](https://crates.io/crates/jsonwebtoken)
 > - [cookie-rs](https://crates.io/crates/cookie)
 >
-> 请参阅 github 仓库 <a href="https://github.com/zzy/tide-handlebars-graphql-mongodb" target="_blank">**tide-handlebars-graphql-mongodb**</a>。目前实现了如下功能（将持续升级）：
+> 请参阅 github 仓库 <a href="https://github.com/zzy/tide-graphql-mongodb" target="_blank">**tide-graphql-mongodb**</a>。目前实现了如下功能（将持续升级）：
 > - 用户注册
 > - 使用 PBKDF2 对密码进行加密（salt）和散列（hash）运算
 > - 整合 JWT 鉴权的用户登录

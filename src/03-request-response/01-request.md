@@ -2,7 +2,7 @@
 
 > [03-request-response/01-request.md](https://github.com/http-rs/tide-book/blob/main/src/03-request-response/01-request.md)
 > <br />
-> commit - 276628d558aaeeb45b85cb33f80e939e062b6104 - 2021.01.21
+> commit - 61cacd9f9ec4c8953a56839de286f551087b4c39 - 2021.01.22
 
 Tide 中，`Request` 结构体是端点（Endpoint）处理函数的输入参数。它包含来自 HTTP 请求的所有数据，但是 Tide 也使用 `Request` 结构体来传输应用程序和请求的`状态`。我们将在下一章更详细地讨论这个知识点。现在，你只需知道 `Request<State>` 类型中的 `State` 泛型参数是应用程序的状态即可。在大多数简单示例中，我们不会使用 `State` 泛型参数，而是使用 `Request<()>`。
 
