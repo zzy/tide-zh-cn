@@ -4,9 +4,10 @@
 > <br />
 > commit - 0adb86ed41d24a167f49240ccb8fb36e27f3e786 - 2021.02.18
 
-Tide allows us to use two types of state. The `Server` state is instantiated when the application is started. It can be used to maintain the application state and is available in all Middleware and Endpoints. This is the ideal place to keep database connection pools, application configuration, cached data or session stores. The `Server` state is passed to all middleware and endpoint calls, and those might happen on different threads so there are some restrictions to what types can be used, expressed in a couple of trait bounds.
+Tide 允许我们使用两种状态：`服务器（Server）`状态，以及`请求（Request）`状态。
 
-Tide also provides `Request` state. As the name implies this state is unique for each `Request` and is lost once a request is handled. Why this type of state might be useful will become clear in the next chapter about `Middleware`
-`Request` state is available as a type-map on the `Request` struct. Variables can be stored in the `Request` and can be retrieved by their type. 
+`服务器（Server）`状态在应用程序启动时实例化，它可以用于维护应用程序状态，并且在所有中间件（Middleware）和端点（Endpoints）中都可用。`服务器（Server）`状态是保持数据库连接池、应用程序配置、缓存数据，或会话存储的理想位置。`服务器（Server）`状态被传递给所有中间件（Middleware）和端点（Endpoints），以供其调用。并且，这些调用可能发生在不同的线程上，因此对可以使用的类型有一些限制。调用中的类型限制，通过一些 trait 边界来表示。
 
-Multiple pieces of `Request` state can be stored in a request, as long as they have different types. The application state is always one instance of a type. Of course this type can have many fields to store as much application state as you need.
+Tide 还提供`请求（Request）`状态。顾名思义，`请求（Request）`状态对于每个`请求（Request）`都是唯一的，并且在请求处理后被丢弃。为什么这种类型的状态可能有用？这个问题将在下一章，关于`中间件（Middleware）`的内容中变得清晰。`请求（Request）`状态是在请求结构体之上的类型映射（type-map），变量可以存储在`请求`中，且可以根据其类型检索和取回。
+
+一个请求中，可以存储多个`请求（Request）`状态，只要它们具有不同的类型。然而，应用程序状态总是一个类型的实例。当然，应用程序状态的类型可以有许多字段，用来存储所需的应用程序状态。

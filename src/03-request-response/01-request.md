@@ -4,16 +4,15 @@
 > <br />
 > commit - 1a79255f4ec17387331e9fd23390ffdf9928309d - 2021.02.19
 
-Tide 中，`Request` 结构体是端点（Endpoint）处理函数的输入参数。它包含来自 HTTP 请求的所有数据，但是 Tide 也使用 `Request` 结构体来传输应用程序和请求的`状态`。我们将在下一章更详细地讨论这个知识点。现在，你只需知道 `Request<State>` 类型中的 `State` 泛型参数是应用程序的状态即可。在大多数简单示例中，我们不会使用 `State` 泛型参数，而是使用 `Request<()>`。
-
-The Tide `Request` struct is the input to your endpoint handler functions. It contains all the data from the HTTP request but it is also used by Tide to pass in the application and request `State`. We will look at this in more detail in the next chapter. For now it is enough to know that the `State` generic type parameter of the `Request<State>` type you will see everywhere is the application state.
-
+Tide 中，`Request` 结构体是端点（Endpoint）处理函数的输入参数。它包含来自 HTTP 请求的所有数据，但是 Tide 也使用 `Request` 结构体来传输应用程序和请求的`状态`。我们将在下一章更详细地讨论这个知识点。现在，你只需知道 `Request<State>` 类型中的 `State` 泛型参数是应用程序的状态即可（译者注：在大多数简单示例中，我们不会使用 `State` 泛型参数，而是使用 `Request<()>`）。
 
 ## 请求主体
 
-The `Request` provides a set of methods to access the `Request` body. `body_string`, `body_bytes` and `body_json` allow you to read the request body either as a string, as binary data or parse it as json data.
-There are a couple of things to keep in mind here. First of all is that, because a request body can be a sizable piece of data, these methods work asynchronously and can only be called once.
-The `body_json` is generic over its return type. Json data can be parsed into any type that implements (or derives) `serde::Deserialize`.
+`Request` 提供了一组方法来访问 `请求（Request）`主体。`body_string`、`body_bytes`，以及 `body_json` 允许您以字符串、二进制数据，或 json 数据的形式读取请求主体。
+
+这方面需要注意几个事项：
+- 首先，因为请求主体可以是一个相当大的数据块，所以这些方法是异步工作的，只需调用一次；
+- 其次，`body_json` 在其返回类型上是泛型的，是故 Json 数据可以解析为实现（或派生）了 `serde::Deserialize` 的任何类型。
 
 ## 查询字符串和查询参数
 
