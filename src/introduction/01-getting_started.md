@@ -1,8 +1,18 @@
-# 示例
+# 入门
 
-> [01-introduction/02-example.md](https://github.com/http-rs/tide-book/blob/main/src/01-introduction/02-example.md)
+> [introduction/01-getting_started.md](https://github.com/http-rs/tide-book/blob/main/src/introduction/01-getting_started.md)
 > <br />
-> commit - 594b37d6bb98a7f39e7596f457ffcb83fd160b86 - 2021.01.04
+> commit - 9a6be55d3b57c6334239f37505b968ece5eda2c4 - 2021.02.18
+
+为了在 Rust 中构建 web 应用程序，你需要 HTTP 服务器，以及异步运行时。在运行 `cargo new --bin web-app` 命令后，将如下行添加到 `Cargo.toml` 文件中：
+
+```toml
+# 仅为示例，请使用你需要的版本
+tide = "0.15.0"
+async-std = { version = "1.6.5", features = ["attributes"] }
+```
+
+# 示例
 
 下面的示例中，将创建 HTTP 服务器，接收 JSON 文本，对其进行验证，并用确认消息进行响应。
 

@@ -1,8 +1,8 @@
 # 延伸阅读
 
-> [a-further-reading.md](https://github.com/http-rs/tide-book/blob/main/src/a-further-reading.md)
+> [further-reading.md](https://github.com/http-rs/tide-book/blob/main/src/further-reading.md)
 > <br />
-> commit - 7805bf0f12232ec799c8490a3053e769d098c9d6 - 2020.10.16
+> commit - 61dd4af85b02254c61b0718e2b90c7314be91331 - 2021.02.18
 
 如下文章来自于 Tide 团队，很好地揭示了框架背后的动机和想法：
 
