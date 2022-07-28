@@ -11,13 +11,13 @@ Tide 是 Rust 生态中的最为优秀的 web 框架之一，具有类型安全�
 
 ## 在线阅读
 
-在线阅读地址：[**《Tide 中文文档》** - https://tide.budshome.com](https://tide.budshome.com)。
+在线阅读地址：[**《Tide 中文文档》** - https://tide-book.niqin.com](https://tide-book.niqin.com)。
 
 ## 离线阅读
 
-如果你喜欢本地阅读方式，可以使用 mdBook（[中文文档](https://mdbook.budshome.com)） 进行书籍构建：
+如果你喜欢本地阅读方式，可以使用 mdBook（[中文文档](https://mdbook.niqin.com)） 进行书籍构建：
 
-> 构建时需要安装一些 crate，中国大陆推荐[更换默认的 Cargo 源为国内镜像源](https://cargo.budshome.com/reference/source-replacement.html)。
+> 构建时需要安装一些 crate，中国大陆推荐[更换默认的 Cargo 源为国内镜像源](https://cargo.niqin.com/reference/source-replacement.html)。
 
 ```bash
 $ git clone https://github.com/zzy/tide-zh-cn
